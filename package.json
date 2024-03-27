@@ -11,5 +11,6 @@
     "url": "https://www.livingtomorrow.com"
   },
   "licensesUrl":"https://github.com/LivingTomorrow/LT_unity-cms-api/blob/main/LICENSE",
-  "documentationUrl": "https://github.com/LivingTomorrow/LT_unity-cms-api/blob/main/README.md"
+  "documentationUrl": "https://github.com/LivingTomorrow/LT_unity-cms-api",
+  "changelogUrl": "https://github.com/LivingTomorrow/LT_unity-cms-api"
 }
