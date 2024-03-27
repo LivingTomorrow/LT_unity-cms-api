@@ -1,0 +1,13 @@
+{
+  "name": "com.livingtomorrow.cmsapi",
+  "version": "1.0.0",
+  "displayName": "Living Tomorrow CMS API",
+  "description": "IMPORTANT : This package depends on com.endel.nativewebsocket. For installation instructions: https://github.com/endel/NativeWebSocket\n\nThis package allows new or existing Unity projects to communicate with the Living Tomorrow Tour framwork.",
+  "dependencies": {
+    "com.endel.nativewebsocket": "1.1.4"
+  },
+  "author": {
+    "name": "Living Tomorrow",
+    "url": "https://www.livingtomorrow.com"
+  }
+}
