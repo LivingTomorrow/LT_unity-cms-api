@@ -19,6 +19,10 @@ namespace LivingTomorrow.CMSApi
         private SequenceConfig[] sequences;
         public SequenceConfig[] Sequences { get 
             {
+                if(sequences == null)
+                {
+                    return sequences;
+                }
                 for (int i = 0; i < sequences.Length; i++)
                 {
                     sequences[i].Index = i;
@@ -88,7 +92,7 @@ namespace LivingTomorrow.CMSApi
             {
                 EditorGUILayout.HelpBox("Sequences missing. Please add at least one sequence config.", MessageType.Error);
             }
-            if (sceneConfig.Sequences.Contains(null))
+            if (sceneConfig.Sequences?.Contains(null) == true)
             {
                 EditorGUILayout.HelpBox("One or more sequence config has not been assigned!", MessageType.Error);
             }

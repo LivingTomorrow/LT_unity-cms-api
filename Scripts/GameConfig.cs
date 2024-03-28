@@ -20,6 +20,10 @@ namespace LivingTomorrow.CMSApi
         {
             get
             {
+                if (sceneConfigs == null)
+                {
+                    return sceneConfigs;
+                }
                 for (int i = 0; i < sceneConfigs.Length; i++)
                 {
                     if (sceneConfigs[i] == null)
@@ -58,7 +62,7 @@ namespace LivingTomorrow.CMSApi
             {
                 EditorGUILayout.HelpBox("Scene Configs missing. Please add at least one scene config.", MessageType.Error);
             }
-            if (gameConfig.SceneConfigs.Contains(null))
+            if (gameConfig.SceneConfigs?.Contains(null) == true)
             {
                 EditorGUILayout.HelpBox("One or more scene config has not been assigned!", MessageType.Error);
 
