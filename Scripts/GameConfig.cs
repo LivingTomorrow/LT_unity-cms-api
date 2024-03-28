@@ -28,7 +28,6 @@ namespace LivingTomorrow.CMSApi
                 {
                     if (sceneConfigs[i] == null)
                     {
-                        Debug.LogError("CMS API | GameConfig | A scene config is null. Unable to assign index property!");
                         break;
                     }
                     sceneConfigs[i].Index = i + 1;
