@@ -57,6 +57,7 @@ namespace LivingTomorrow.CMSApi
                 if (websocket?.State == WebSocketState.Open)
                     await websocket.Send(_bytes);
                 LatestStatusUpdate = _msg;
+                LivingTomorrowGameManager.OnLoadProgressUpdateEvent?.Invoke(_msg.logMsg,(int)_msg.progress, (int)_msg.maxProgress);
                 Instance.OnWebSocketSatusSentEvent.Invoke(_msg);
             }
 
