@@ -26,7 +26,7 @@ namespace LivingTomorrow.CMSApi
             if(focus && needsResetOnFocus)
             {
                 needsResetOnFocus = false;
-                GameManager.Instance.ResetGame();
+                LivingTomorrowGameManager.Instance.ResetGame();
                 WebSocketManager.Connect();
             }
 #endif
