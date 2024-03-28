@@ -300,7 +300,7 @@ namespace LivingTomorrow.CMSApi
             if( result == null)
             {
                 Debug.LogError($"CMS API | TimelineManagerBase | GetIntParam | Can't find int param of scene config {_SceneName} id: {id}");
-                result = 0;
+                return null;
             }
             return (int)result;
         }
