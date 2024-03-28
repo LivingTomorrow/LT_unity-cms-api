@@ -25,7 +25,10 @@ namespace LivingTomorrow.CMSApi
                 }
                 for (int i = 0; i < sequences.Length; i++)
                 {
-                    sequences[i].Index = i;
+                    if (sequences[i] != null)
+                    {
+                        sequences[i].Index = i;
+                    }
                 }
                 return sequences;
             } 
