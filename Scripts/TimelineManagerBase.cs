@@ -18,7 +18,7 @@ namespace LivingTomorrow.CMSApi
         protected bool _currentIdleState = false;
         protected long _lastProgress = 1;
         protected long _lastMaxProgress = 1;
-        protected StatusUpdateMessage.StatusEnum _lastSentStatusMessage;
+        protected StatusUpdateMessage.StatusEnum? _lastSentStatusMessage = null;
 
         protected virtual void OnEnable()
         {
@@ -107,13 +107,17 @@ namespace LivingTomorrow.CMSApi
 
         protected virtual void OnWebsocketReconnected()
         {
+            if(_lastSentStatusMessage == null)
+            {
+                return;
+            }
             if (_error != null)
             {
-                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(_SceneIndex, _currentsection, StatusUpdateMessage.LogLevel.Info, "TimelineManager | Status Update", _lastSentStatusMessage, _error, _lastProgress, _lastMaxProgress));
+                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(_SceneIndex, _currentsection, StatusUpdateMessage.LogLevel.Info, "TimelineManager | Status Update", (StatusUpdateMessage.StatusEnum)_lastSentStatusMessage, _error, _lastProgress, _lastMaxProgress));
             }
             else
             {
-                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(_SceneIndex, _currentsection, StatusUpdateMessage.LogLevel.Error, _error, _lastSentStatusMessage, _error, _lastProgress, _lastMaxProgress));
+                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(_SceneIndex, _currentsection, StatusUpdateMessage.LogLevel.Error, _error, (StatusUpdateMessage.StatusEnum)_lastSentStatusMessage, _error, _lastProgress, _lastMaxProgress));
             }
         }
 
@@ -185,7 +189,7 @@ namespace LivingTomorrow.CMSApi
             {
                 _lastSentStatusMessage = StatusUpdateMessage.StatusEnum.Idle;
             }
-            return _lastSentStatusMessage;
+            return (StatusUpdateMessage.StatusEnum)_lastSentStatusMessage;
         }
 
         /// <summary>
