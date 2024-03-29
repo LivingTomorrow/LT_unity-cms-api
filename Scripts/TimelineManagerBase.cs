@@ -37,19 +37,11 @@ namespace LivingTomorrow.CMSApi
 
         protected virtual void Start()
         {
-            if (!LivingTomorrowGameManager.hasInstance)
-            {
-                return;
-            }
-
             _GM = LivingTomorrowGameManager.Instance; //Reference Game Manager
             _MM = MediaManager.Instance; //Reference Media Manager
 
-            if (WebSocketManager.hasInstance)
-            {
-                WebSocketManager.Instance.OnWebSocketCommandReceivedEvent.AddListener(OnReceivedWebsocketCommand);
-                WebSocketManager.Instance.OnWebSocketReconnectedEvent.AddListener(OnWebsocketReconnected);
-            }
+            WebSocketManager.Instance.OnWebSocketCommandReceivedEvent.AddListener(OnReceivedWebsocketCommand);
+            WebSocketManager.Instance.OnWebSocketReconnectedEvent.AddListener(OnWebsocketReconnected);
         }
 
         protected virtual void OnDestroy()
