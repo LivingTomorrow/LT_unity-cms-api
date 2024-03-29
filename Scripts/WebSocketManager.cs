@@ -216,6 +216,7 @@ namespace LivingTomorrow.CMSApi
                 switch (_cmd.command)
                 {
                     case "restart":
+                        OnWebSocketCommandReceivedEvent?.Invoke(_cmd);
                         Instance.OnRestart.Invoke();
                         break;
                     case "error":
