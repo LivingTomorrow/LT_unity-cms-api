@@ -10,9 +10,6 @@ namespace LivingTomorrow.CMSApi
     public class TimelineManagerBase : MonoBehaviour
     {
         public SceneConfig sceneConfig;
-
-        protected LivingTomorrowGameManager _GM;
-        protected MediaManager _MM;
         protected Hashtable _MediaAssets;
         protected string _SceneName = "";
         protected int _SceneIndex = 0;
@@ -25,7 +22,7 @@ namespace LivingTomorrow.CMSApi
 
         protected virtual void OnEnable()
         {
-            if(sceneConfig == null)
+            if (sceneConfig == null)
             {
                 Debug.LogError("CMS API | TimelineManagerBase | OnEnable: Scene Config is not assigned. Unable to continue. Disabling script.");
                 enabled = false;
@@ -37,20 +34,14 @@ namespace LivingTomorrow.CMSApi
 
         protected virtual void Start()
         {
-            _GM = LivingTomorrowGameManager.Instance; //Reference Game Manager
-            _MM = MediaManager.Instance; //Reference Media Manager
-
-            WebSocketManager.Instance.OnWebSocketCommandReceivedEvent.AddListener(OnReceivedWebsocketCommand);
-            WebSocketManager.Instance.OnWebSocketReconnectedEvent.AddListener(OnWebsocketReconnected);
+            WebSocketManager.OnWebSocketCommandReceivedEvent.AddListener(OnReceivedWebsocketCommand);
+            WebSocketManager.OnWebSocketReconnectedEvent.AddListener(OnWebsocketReconnected);
         }
 
         protected virtual void OnDestroy()
         {
-            if (WebSocketManager.hasInstance)
-            {
-                WebSocketManager.Instance.OnWebSocketCommandReceivedEvent?.RemoveListener(OnReceivedWebsocketCommand);
-                WebSocketManager.Instance.OnWebSocketReconnectedEvent?.RemoveListener(OnWebsocketReconnected);
-            }
+            WebSocketManager.OnWebSocketCommandReceivedEvent?.RemoveListener(OnReceivedWebsocketCommand);
+            WebSocketManager.OnWebSocketReconnectedEvent?.RemoveListener(OnWebsocketReconnected);
         }
 
         // Update is called once per frame
@@ -233,7 +224,7 @@ namespace LivingTomorrow.CMSApi
         public void SendSequenceStatus(int index, long progress, long maxprogress)
         {
             var sequence = sceneConfig.Sequences.ElementAtOrDefault(index);
-            if(sequence == null)
+            if (sequence == null)
             {
                 Debug.LogError($"CMS API | TimelineManagerBase | SendSequenceStatus: Sequence with index {index} not found.");
                 return;
@@ -259,7 +250,7 @@ namespace LivingTomorrow.CMSApi
         public string GetStringParam(string id)
         {
             LivingTomorrowGameManager.getSceneConfigString(_SceneName, id, out string result);
-            if(result == null)
+            if (result == null)
             {
                 Debug.LogError($"CMS API | TimelineManagerBase | GetStringParam: Can't find string param of scene config {_SceneName} id: {id}");
             }
@@ -274,7 +265,7 @@ namespace LivingTomorrow.CMSApi
         public bool? GetBoolParam(string id)
         {
             LivingTomorrowGameManager.getSceneConfigBool(_SceneName, id, out bool? result);
-            if(result == null)
+            if (result == null)
             {
                 Debug.LogError($"CMS API | TimelineManagerBase | GetBoolParam: Can't find bool param of scene config {_SceneName} id: {id}");
             }
@@ -289,7 +280,7 @@ namespace LivingTomorrow.CMSApi
         public int? GetIntParam(string id)
         {
             LivingTomorrowGameManager.GetSceneConfigFloat(_SceneName, id, out float? result);
-            if( result == null)
+            if (result == null)
             {
                 Debug.LogError($"CMS API | TimelineManagerBase | GetIntParam | Can't find int param of scene config {_SceneName} id: {id}");
                 return null;
@@ -311,7 +302,7 @@ namespace LivingTomorrow.CMSApi
             ws_scenarioEvent(scenarioEvent);
         }
     }
-    [CustomEditor(typeof(TimelineManagerBase),true)]
+    [CustomEditor(typeof(TimelineManagerBase), true)]
     public class TimelineManagerBaseInspector : Editor
     {
         public override void OnInspectorGUI()

@@ -10,13 +10,13 @@ namespace LivingTomorrow.CMSApi
         // Start is called before the first frame update
         void Start()
         {
-            WebSocketManager.Instance.OnWebSocketCommandReceivedEvent.AddListener(HandleCommandMessage);
+            WebSocketManager.OnWebSocketCommandReceivedEvent?.AddListener(HandleCommandMessage);
         }
 
         private void OnDestroy()
         {
 
-            WebSocketManager.Instance.OnWebSocketCommandReceivedEvent.RemoveListener(HandleCommandMessage);
+            WebSocketManager.OnWebSocketCommandReceivedEvent?.RemoveListener(HandleCommandMessage);
         }
 
         private void OnApplicationFocus(bool focus)

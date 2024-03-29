@@ -16,9 +16,9 @@ namespace LivingTomorrow.CMSApi
             public UnityEvent OnWebSocketConnectingEvent;
             public UnityEvent OnWebSocketOpenedEvent;
             public UnityEvent OnWebSocketClosedEvent;
-            public UnityEvent OnWebSocketReconnectedEvent;
+            public static UnityEvent OnWebSocketReconnectedEvent = new();
             public UnityEvent<string> OnWebSocketErrorEvent;
-            public UnityEvent<CommandMessage> OnWebSocketCommandReceivedEvent;
+            public static UnityEvent<CommandMessage> OnWebSocketCommandReceivedEvent = new();
             public UnityEvent<StatusUpdateMessage> OnWebSocketSatusSentEvent;
             public UnityEvent<CommandMessage> OnSendConnectedClientsEvent;
             public UnityEvent<CommandMessage> OnReceivedError;
@@ -175,10 +175,10 @@ namespace LivingTomorrow.CMSApi
                 if (Auth?.Name?.Length > 0)
                 {
                     Debug.Log(string.Format("CMS API | Websocket Manager | Auth Message: Name= {0}, Id= {1}", Auth.Name, Auth.Id));
-                    if (Instance.OnWebSocketReconnectedEvent != null)
+                    if (OnWebSocketReconnectedEvent != null)
                     {
                         // This should be true for every timelinemanager that inherits from TimelineManagerBase
-                        Instance.OnWebSocketReconnectedEvent?.Invoke();
+                        OnWebSocketReconnectedEvent?.Invoke();
                     }
                     else if (LatestStatusUpdate != null)
                     {
@@ -232,7 +232,7 @@ namespace LivingTomorrow.CMSApi
                             Instance.OnClientDataUpdate.Invoke(_cmd);
                             break;
                         default:
-                            Instance.OnWebSocketCommandReceivedEvent.Invoke(_cmd);
+                            OnWebSocketCommandReceivedEvent?.Invoke(_cmd);
                             break;
                     }
                 }
