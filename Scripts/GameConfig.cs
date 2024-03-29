@@ -46,6 +46,7 @@ namespace LivingTomorrow.CMSApi
         [Tooltip("Global parameters that can be used to allow Living Tomorrow to customize certain int variables in the application.")]
         public ConfigParamIntId[] GlobalIntParameters;
     }
+#if UNITY_EDITOR
     [CustomEditor(typeof(GameConfig))]
     public class GameConfigInspector : Editor
     {
@@ -69,5 +70,6 @@ namespace LivingTomorrow.CMSApi
         }
         
     }
+#endif
 }
 

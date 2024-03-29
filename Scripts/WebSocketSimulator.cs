@@ -86,7 +86,7 @@ namespace LivingTomorrow.CMSApi
             }
         }
     }
-
+#if UNITY_EDITOR
     [CustomEditor(typeof(WebSocketSimulator))]
     public class WebSocketSimulatorInspector : Editor
     {
@@ -173,7 +173,7 @@ namespace LivingTomorrow.CMSApi
             }   
         }
     }
-
+#endif
     public class SimulatedClientState
     {
         public int sceneIndex { get; set; }

@@ -22,7 +22,7 @@ namespace LivingTomorrow.CMSApi
         [SerializeField]
         public bool standAloneMode;
     }
-
+#if UNITY_EDITOR
     [CustomEditor(typeof(DemoSettings))]
     public class DemoSettingsInspector : Editor
     {
@@ -45,5 +45,6 @@ namespace LivingTomorrow.CMSApi
         }
 
     }
+#endif
 }
 

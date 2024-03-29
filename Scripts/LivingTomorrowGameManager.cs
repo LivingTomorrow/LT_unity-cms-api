@@ -572,6 +572,7 @@ namespace LivingTomorrow.CMSApi
         public Vector3 PlayerCamOffsetRotation { get; set; }
         public bool TrapNextPreviousWSCommand { get; set; }//Some scenes treat the "next" command differently, they should not skip scenes, but media items instead!
     }
+#if UNITY_EDITOR
     [CustomEditor(typeof(LivingTomorrowGameManager))]
     public class LivingTomorrowGameManagerInspector : Editor
     {
@@ -594,5 +595,6 @@ namespace LivingTomorrow.CMSApi
 
         }
     }
+#endif
 }
 

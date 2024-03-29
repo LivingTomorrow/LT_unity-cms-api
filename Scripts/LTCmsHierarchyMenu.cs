@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace LivingTomorrow.CMSApi
 {
+#if UNITY_EDITOR
     public class LTCmsHierarchyMenu : Editor
     {
         [MenuItem("GameObject/LivingTomorrow/LT_CMS", false, 10)]
@@ -20,5 +21,6 @@ namespace LivingTomorrow.CMSApi
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
         }
     }
+#endif
 }
 

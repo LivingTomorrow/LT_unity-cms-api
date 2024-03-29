@@ -306,6 +306,7 @@ namespace LivingTomorrow.CMSApi
             ws_scenarioEvent(scenarioEvent);
         }
     }
+#if UNITY_EDITOR
     [CustomEditor(typeof(TimelineManagerBase), true)]
     public class TimelineManagerBaseInspector : Editor
     {
@@ -320,4 +321,5 @@ namespace LivingTomorrow.CMSApi
             }
         }
     }
+#endif
 }

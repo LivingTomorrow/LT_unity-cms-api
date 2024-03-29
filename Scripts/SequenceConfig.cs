@@ -16,6 +16,7 @@ namespace LivingTomorrow.CMSApi
         public string displayName;
     }
 
+#if UNITY_EDITOR
     [CustomEditor(typeof(SequenceConfig))]
     public class SequenceConfigEditor : Editor
     {
@@ -34,5 +35,6 @@ namespace LivingTomorrow.CMSApi
         }
 
     }
+#endif
 }
 

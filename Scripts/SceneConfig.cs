@@ -76,6 +76,8 @@ namespace LivingTomorrow.CMSApi
             return scene;
         }
     }
+
+#if UNITY_EDITOR
     [CustomEditor(typeof(SceneConfig))]
     public class SceneConfigInspector : Editor
     {
@@ -101,5 +103,6 @@ namespace LivingTomorrow.CMSApi
             }
         }
     }
+#endif
 }
 
