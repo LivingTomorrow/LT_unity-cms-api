@@ -51,30 +51,6 @@ namespace LivingTomorrow.CMSApi
             WebSocketManager.OnWebSocketReconnectedEvent?.RemoveListener(OnWebsocketReconnected);
         }
 
-        // Update is called once per frame
-        protected virtual void Update()
-        {
-            if (Application.isEditor)
-                KeyboardControls();
-        }
-
-        private void KeyboardControls()
-        {
-#if !ENABLE_INPUT_SYSTEM
-            if (_GM.TrapNextPreviousWSCommand)
-            {
-                if (Input.GetKeyDown(KeyCode.LeftArrow)) OnReceivedWebsocketCommand(new CommandMessage() { command = "previous" });
-                if (Input.GetKeyUp(KeyCode.RightArrow)) OnReceivedWebsocketCommand(new CommandMessage() { command = "next" });
-            }
-            else
-            {
-                if (Input.GetKeyDown(KeyCode.LeftArrow)) SceneLoader.Instance.LoadPreviousScene();
-                if (Input.GetKeyDown(KeyCode.RightArrow)) SceneLoader.Instance.LoadNextScene(false);
-            }
-            if (Input.GetKeyUp(KeyCode.Space)) OnReceivedWebsocketCommand(new CommandMessage() { command = "play" });
-#endif
-        }
-
         public void OnReceivedWebsocketCommand(CommandMessage _cmd)
         {
             switch (_cmd.command)
