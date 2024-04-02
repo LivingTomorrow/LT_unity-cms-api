@@ -26,7 +26,14 @@ namespace LivingTomorrow.CMSApi
             if(focus && needsResetOnFocus)
             {
                 needsResetOnFocus = false;
-                LivingTomorrowGameManager.Instance.ResetGame();
+
+                // simulate restart command
+                CommandMessage msg = new CommandMessage();
+                msg.command = "restart";
+                byte[] _bytes = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msg));
+                WebSocketManager.OnWebSocketMessage(_bytes);
+
+                // connect again
                 WebSocketManager.Connect();
             }
 #endif
