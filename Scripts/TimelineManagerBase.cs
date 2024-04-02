@@ -28,6 +28,13 @@ namespace LivingTomorrow.CMSApi
                 enabled = false;
                 return;
             }
+            var scenes = LivingTomorrowGameManager.Instance?.gameConfig?.SceneConfigs;
+            if (scenes == null)
+            {
+                Debug.LogError("CMS API | TimelineManagerBase | OnEnable: Scene Configs is not assigned. Unable to continue. Disabling script.");
+                enabled = false;
+                return;
+            }
             _SceneIndex = sceneConfig.Index;
             _SceneName = sceneConfig.sceneName;
         }
