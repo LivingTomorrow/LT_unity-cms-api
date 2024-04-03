@@ -143,6 +143,17 @@ namespace LivingTomorrow.CMSApi
         private IEnumerator StartSimulatedLoadingProcedure()
         {
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Getting Device Info", 0, 4);
+            
+            if (DeviceInfo.Instance?.SimulateEmptyName == true)
+            {
+                yield return new WaitForSeconds(0.5f);
+                DeviceInfo.Instance?.OnRequireNameInputEvent.Invoke();
+                while (DeviceInfo.Instance.deviceNameIsSet == false)
+                {
+                    yield return null;
+                }
+
+            }
             yield return new WaitForSeconds(1);
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Got Device Info", 1, 4);
             yield return new WaitForSeconds(1);

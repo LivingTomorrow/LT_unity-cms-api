@@ -29,8 +29,8 @@ namespace LivingTomorrow.CMSApi
         private string _currentDeviceName;
         private string _error = null;
 
-        [Tooltip("If checked, will simulate an OnFailEvent while in 'Stand Alone Mode'.")]
-        public bool SimulateOnFail = false;
+        [Tooltip("If checked, will simulate an OnRequireNameInputEvent while in 'Stand Alone Mode'.")]
+        public bool SimulateEmptyName = false;
 
         public UnityEvent OnRequireNameInputEvent;
 
@@ -159,6 +159,12 @@ namespace LivingTomorrow.CMSApi
         public void SetDeviceNameInGame(string _name) => StartCoroutine(PostDeviceInfo(_name));
         IEnumerator PostDeviceInfo(string _devicename)
         {
+            if(LivingTomorrowGameManager.Instance?.demoSettings.standAloneMode == true)
+            {
+                yield return new WaitForSeconds(2);
+                DeviceName = _devicename;
+                yield break;
+            }
             OnStartPostDeviceInfoEvent.Invoke();
             bool _success = false;
             while (_success == false)//Retry until successful
