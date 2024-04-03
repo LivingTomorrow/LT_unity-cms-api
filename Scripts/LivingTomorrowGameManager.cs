@@ -116,15 +116,15 @@ namespace LivingTomorrow.CMSApi
 
                 if (demoSettings.standAloneMode)
                 {
-                    OnLoadingDone.Invoke(XRConfig);
+                    StartCoroutine(StartSimulatedLoadingProcedure());
                 }
                 else
                 {
                     if (!DeviceInfo.Instance.deviceNameIsSet)
                     {
                         Debug.Log("CMS API | LivingTomorrowGameManager | Get Device Info");
-                        OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Get Device Info", 0, 5);
-                        //WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Get Device Info", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 5));
+                        OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Get Device Info", 0, 3);
+                        //WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Get Device Info", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 3));
                         DeviceInfo.Instance.OnSuccesEvent.AddListener(OnGotDeviceInfo);
                         DeviceInfo.Instance.OnFailEvent.AddListener(OnFailedToGetDeviceInfo);
                         DeviceInfo.Instance.GetDeviceInfoNow();
@@ -140,6 +140,23 @@ namespace LivingTomorrow.CMSApi
 
         }
 
+        private IEnumerator StartSimulatedLoadingProcedure()
+        {
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Getting Device Info", 0, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Got Device Info", 1, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadProgressUpdateEvent.Invoke("Getting WebSocketURI from API", 1, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | Websocket Manager | Socket Open.", 2, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Get Configuration", 3, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Received Configuration", 4, 4);
+            yield return new WaitForSeconds(1);
+            OnLoadingDone.Invoke(XRConfig);
+        }
+
         private void OnDestroy()
         {
             WebSocketManager.Instance.OnRestart.RemoveListener(ResetGame);
@@ -149,7 +166,7 @@ namespace LivingTomorrow.CMSApi
         {
             //WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Error, "Game Manager | Failed Getting Device Info", StatusUpdateMessage.StatusEnum.Busy, _error, 4, 5));
 
-            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Failed Getting Device Info, trying again...", 1, 5);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Failed Getting Device Info, trying again...", 1, 4);
             Debug.LogWarning("CMS API | LivingTomorrowGameManager | Could not get device: " + errorMsg);
 
             Utils.DelayedCall(4, DeviceInfo.Instance.GetDeviceInfoNow);
@@ -158,7 +175,7 @@ namespace LivingTomorrow.CMSApi
         private void OnGotDeviceInfo(string deviceName)
         {
             Debug.Log("CMS API | LivingTomorrowGameManager | OnGotDeviceInfo");
-            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Got Device Info", 1, 5);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Got Device Info", 1, 4);
             DeviceInfo.Instance.OnSuccesEvent.RemoveListener(OnGotDeviceInfo);
             DeviceInfo.Instance.OnFailEvent.RemoveListener(OnFailedToGetDeviceInfo);
 
@@ -213,7 +230,7 @@ namespace LivingTomorrow.CMSApi
 
         IEnumerator GetWebSocketURI()
         {
-            OnLoadProgressUpdateEvent.Invoke("Getting WebSocketURI from API", 1, 5);
+            OnLoadProgressUpdateEvent.Invoke("Getting WebSocketURI from API", 1, 4);
             bool _success = false;
             while (_success == false)//Retry until successful
             {
@@ -229,17 +246,17 @@ namespace LivingTomorrow.CMSApi
                 {
                     case UnityWebRequest.Result.ConnectionError:
                         Debug.LogError("CMS API | LivingTomorrowGameManager | GetWebSocketURI Connection Error: " + _uwr.error);
-                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Connection Error: " + _uwr.error, 1, 5);
+                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Connection Error: " + _uwr.error, 1, 4);
                         yield return new WaitForSeconds(10);
                         break;
                     case UnityWebRequest.Result.DataProcessingError:
                         Debug.LogError("CMS API | LivingTomorrowGameManager | GetWebSocketURI Data Processing Error: " + _uwr.error);
-                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Data Processing Error: " + _uwr.error, 1, 5);
+                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Data Processing Error: " + _uwr.error, 1, 4);
                         yield return new WaitForSeconds(10);
                         break;
                     case UnityWebRequest.Result.ProtocolError:
                         Debug.LogError("CMS API | LivingTomorrowGameManager | GetWebSocketURI Protocol Error: " + _uwr.error);
-                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Protocol Error: " + _uwr.error, 1, 5);
+                        OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Protocol Error: " + _uwr.error, 1, 4);
                         yield return new WaitForSeconds(10);
                         break;
                     case UnityWebRequest.Result.Success:
@@ -248,7 +265,7 @@ namespace LivingTomorrow.CMSApi
                         if (_uwr.downloadHandler.text == "")
                         {
                             Debug.LogError("CMS API | LivingTomorrowGameManager | Did not receive metaData from API, can't start SocketConnection");
-                            OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Protocol Error: Did not receive metaData from API, can't start SocketConnection", 1, 5);
+                            OnLoadProgressUpdateEvent.Invoke("GetWebSocketURI Protocol Error: Did not receive metaData from API, can't start SocketConnection", 1, 4);
                         }
                         else
                         {
@@ -297,20 +314,20 @@ namespace LivingTomorrow.CMSApi
         private void OnWebSocketError(string msg)
         {
             WebSocketManager.Instance.OnWebSocketErrorEvent.RemoveListener(OnWebSocketError);
-            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Socket Error: " + "'" + msg + "' | Reconnecting in 5 seconds...", 1, 5);
+            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Socket Error: " + "'" + msg + "' | Reconnecting in 5 seconds...", 1, 4);
         }
 
         private void HandleWebSockerConnecting()
         {
             WebSocketManager.Instance.OnWebSocketErrorEvent.AddListener(OnWebSocketError);
-            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Connecting to websocket at " + WebSocketManager.WebSocketsURI + " , with client id = " + $"{Consts.CurrentAuthType}-" + cleanId + " !", 1, 5);
+            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Connecting to websocket at " + WebSocketManager.WebSocketsURI + " , with client id = " + $"{Consts.CurrentAuthType}-" + cleanId + " !", 1, 4);
         }
 
 
         private void OnWebSocketOpened()
         {
             WebSocketManager.Instance.OnWebSocketOpenedEvent.RemoveListener(OnWebSocketOpened);
-            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Socket Open.", 2, 5);
+            OnLoadProgressUpdateEvent.Invoke("Websocket Manager | Socket Open.", 2, 4);
 
             HandleConfiguration();
         }
@@ -378,7 +395,7 @@ namespace LivingTomorrow.CMSApi
             bool _success = false;
             while (_success == false)//Retry until successful
             {
-                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Get Configuration", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 5));
+                WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Get Configuration", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 4));
 
                 using var _uwr = UnityWebRequest.Get(Consts.GetGameConfigURI + Consts.DemoId + "/" + gameConfig.version);
                 var _cert = new CertHandlerForceAcceptAll();
@@ -450,7 +467,7 @@ namespace LivingTomorrow.CMSApi
 
         private void OnGotServerConfiguration(XRConfig newGameConfig, string gameVersion, uint configVersion)
         {
-            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Received Configuration", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 5));
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Received Configuration", StatusUpdateMessage.StatusEnum.Busy, _error, 4, 4));
 
             XRConfig = newGameConfig;
             if (DeviceInfo.Instance != null)
@@ -489,8 +506,7 @@ namespace LivingTomorrow.CMSApi
         {
             if (demoSettings.standAloneMode)
             {
-                Utils.DelayedCall(1f, () => WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "Game Manager | Get Configuration", StatusUpdateMessage.StatusEnum.Busy, _error, 3, 5)));
-                Utils.DelayedCall(2f, () => OnLoadingDone.Invoke(XRConfig));
+                StartCoroutine(StartSimulatedLoadingProcedure());
             }
             else
             {

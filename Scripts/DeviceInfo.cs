@@ -29,6 +29,8 @@ namespace LivingTomorrow.CMSApi
         private string _currentDeviceName;
         private string _error = null;
 
+        [Tooltip("If checked, will simulate an OnFailEvent while in 'Stand Alone Mode'.")]
+        public bool SimulateOnFail = false;
 
         public UnityEvent OnRequireNameInputEvent;
 
