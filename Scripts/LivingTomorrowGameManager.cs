@@ -143,7 +143,8 @@ namespace LivingTomorrow.CMSApi
         private IEnumerator StartSimulatedLoadingProcedure()
         {
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Getting Device Info", 0, 4);
-            
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | LivingTomorrowGameManager | Getting Device Info", StatusUpdateMessage.StatusEnum.Busy, null, 0, 4));
+
             if (DeviceInfo.Instance?.SimulateEmptyName == true)
             {
                 yield return new WaitForSeconds(0.5f);
@@ -156,14 +157,24 @@ namespace LivingTomorrow.CMSApi
             }
             yield return new WaitForSeconds(1);
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Got Device Info", 1, 4);
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | LivingTomorrowGameManager | Got Device Info", StatusUpdateMessage.StatusEnum.Busy, null, 1, 4));
+
             yield return new WaitForSeconds(1);
-            OnLoadProgressUpdateEvent.Invoke("Getting WebSocketURI from API", 1, 4);
+            OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Getting WebSocketURI from API", 1, 4);
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | LivingTomorrowGameManager | Getting WebSocketURI from API", StatusUpdateMessage.StatusEnum.Busy, null, 1, 4));
+
             yield return new WaitForSeconds(1);
             OnLoadProgressUpdateEvent.Invoke("CMS API | Websocket Manager | Socket Open.", 2, 4);
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | Websocket Manager | Socket Open.", StatusUpdateMessage.StatusEnum.Busy, null, 2, 4));
+
             yield return new WaitForSeconds(1);
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Get Configuration", 3, 4);
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | LivingTomorrowGameManager | Get Configuration", StatusUpdateMessage.StatusEnum.Busy, null, 3, 4));
+
             yield return new WaitForSeconds(1);
             OnLoadProgressUpdateEvent.Invoke("CMS API | LivingTomorrowGameManager | Received Configuration", 4, 4);
+            WebSocketManager.SendStatusUpdate(new StatusUpdateMessage(0, 0, StatusUpdateMessage.LogLevel.Info, "CMS API | LivingTomorrowGameManager | Received Configuration", StatusUpdateMessage.StatusEnum.Busy, null, 4, 4));
+
             yield return new WaitForSeconds(1);
             OnLoadingDone.Invoke(XRConfig);
         }
