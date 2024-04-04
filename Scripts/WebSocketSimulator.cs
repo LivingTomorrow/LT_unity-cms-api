@@ -50,18 +50,14 @@ namespace LivingTomorrow.CMSApi
 
         private void Start()
         {
-            if (WebSocketManager.hasInstance && WebSocketManager.Instance != null)
-            {
-                WebSocketManager.OnWebSocketSatusSentEvent?.AddListener(HandleWebSocketStatusSent);
-            }
+
+            WebSocketManager.OnWebSocketSatusSentEvent?.AddListener(HandleWebSocketStatusSent);
         }
 
         private void OnDestroy()
         {
-            if(WebSocketManager.hasInstance && WebSocketManager.Instance != null)
-            {
-                WebSocketManager.OnWebSocketSatusSentEvent?.RemoveListener(HandleWebSocketStatusSent);
-            }
+
+            WebSocketManager.OnWebSocketSatusSentEvent?.RemoveListener(HandleWebSocketStatusSent);
         }
 
         private void HandleWebSocketStatusSent(StatusUpdateMessage message)
@@ -74,15 +70,15 @@ namespace LivingTomorrow.CMSApi
             OnStateUpdate.Invoke(state);
             if (LivingTomorrowGameManager.Instance.demoSettings.standAloneMode == true && SimulateAutomaticCommands == true)
             {
-                if(state.status == StatusEnum.Idle.ToString())
+                if (state.status == StatusEnum.Idle.ToString())
                 {
                     Utils.DelayedCall(0.5f, () => SimulateCommandMessage("play"));
                 }
-                else if(state.status == StatusEnum.Ended.ToString())
+                else if (state.status == StatusEnum.Ended.ToString())
                 {
                     Utils.DelayedCall(0.5f, () => SimulateCommandMessage("restart"));
                 }
-                
+
             }
         }
     }
@@ -167,10 +163,10 @@ namespace LivingTomorrow.CMSApi
 
         private void OnDestroy()
         {
-            if(sim != null)
+            if (sim != null)
             {
                 sim.OnStateUpdate?.RemoveListener(HandleStatusUpdate);
-            }   
+            }
         }
     }
 #endif
