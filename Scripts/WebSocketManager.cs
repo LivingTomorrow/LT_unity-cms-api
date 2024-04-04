@@ -19,7 +19,7 @@ namespace LivingTomorrow.CMSApi
         public static UnityEvent OnWebSocketReconnectedEvent = new();
         public UnityEvent<string> OnWebSocketErrorEvent;
         public static UnityEvent<CommandMessage> OnWebSocketCommandReceivedEvent = new();
-        public UnityEvent<StatusUpdateMessage> OnWebSocketSatusSentEvent;
+        public static UnityEvent<StatusUpdateMessage> OnWebSocketSatusSentEvent = new();
         public UnityEvent<CommandMessage> OnSendConnectedClientsEvent;
         public UnityEvent<CommandMessage> OnReceivedError;
         public UnityEvent OnUsersAssigned;
@@ -60,7 +60,7 @@ namespace LivingTomorrow.CMSApi
                 await websocket.Send(_bytes);
             LatestStatusUpdate = _msg;
             LivingTomorrowGameManager.OnLoadProgressUpdateEvent?.Invoke(_msg.logMsg, (int)_msg.progress, (int)_msg.maxProgress);
-            Instance.OnWebSocketSatusSentEvent.Invoke(_msg);
+            OnWebSocketSatusSentEvent?.Invoke(_msg);
         }
 
         public static async void SendScenarioEvent(ScenarioEventMessage _msg)

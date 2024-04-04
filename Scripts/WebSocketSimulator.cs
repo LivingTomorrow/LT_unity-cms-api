@@ -52,7 +52,7 @@ namespace LivingTomorrow.CMSApi
         {
             if (WebSocketManager.hasInstance && WebSocketManager.Instance != null)
             {
-                WebSocketManager.Instance?.OnWebSocketSatusSentEvent?.AddListener(HandleWebSocketStatusSent);
+                WebSocketManager.OnWebSocketSatusSentEvent?.AddListener(HandleWebSocketStatusSent);
             }
         }
 
@@ -60,7 +60,7 @@ namespace LivingTomorrow.CMSApi
         {
             if(WebSocketManager.hasInstance && WebSocketManager.Instance != null)
             {
-                WebSocketManager.Instance?.OnWebSocketSatusSentEvent?.RemoveListener(HandleWebSocketStatusSent);
+                WebSocketManager.OnWebSocketSatusSentEvent?.RemoveListener(HandleWebSocketStatusSent);
             }
         }
 
