@@ -14,12 +14,18 @@ namespace LivingTomorrow.CMSApi
         protected string _SceneName = "";
         protected int _SceneIndex = 0;
         protected string _error = null;
-        protected int _currentsection = 1;
+        protected int _currentsection = 0;
         protected bool _currentIdleState = false;
         protected long _lastProgress = 1;
         protected long _lastMaxProgress = 1;
         protected StatusUpdateMessage.StatusEnum? _lastSentStatusMessage = null;
 
+        protected SequenceConfig _sequenceStatus { get 
+            {
+                var result = sceneConfig?.Sequences?.FirstOrDefault(x => x.Index == _currentsection);
+                return result;
+            } 
+        }
         protected virtual void OnEnable()
         {
             if (sceneConfig == null)
