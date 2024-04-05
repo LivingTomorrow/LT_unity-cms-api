@@ -16,4 +16,4 @@ This is a Unity package that allows new or existing Unity projects to be integra
 5. Enter the url: `https://github.com/LivingTomorrow/LT_unity-cms-api.git` and press enter.
 
 ## Documentation Wiki
-Please check go to the wiki on GitHub to access the documentation for this package: https://github.com/LivingTomorrow/LT_unity-cms-api/wiki
+Please go to the wiki on GitHub to access the documentation for this package: https://github.com/LivingTomorrow/LT_unity-cms-api/wiki
