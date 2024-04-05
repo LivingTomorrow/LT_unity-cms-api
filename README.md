@@ -1,6 +1,6 @@
 # Living Tomorrow CMS API
 
-This Unity package allows new or existing Unity projects to communicate with the Living Tomorrow Tour framwork.
+This is a Unity package that allows new or existing Unity projects to be integrated with the Living Tomorrow API.
 
 ## Installation
 
@@ -16,4 +16,4 @@ This Unity package allows new or existing Unity projects to communicate with the
 5. Enter the url: `https://github.com/LivingTomorrow/LT_unity-cms-api.git` and press enter.
 
 ## Documentation Wiki
-Please check the wiki on github to access the documentation for this package: https://github.com/LivingTomorrow/LT_unity-cms-api/wiki
+Please check go to the wiki on GitHub to access the documentation for this package: https://github.com/LivingTomorrow/LT_unity-cms-api/wiki
