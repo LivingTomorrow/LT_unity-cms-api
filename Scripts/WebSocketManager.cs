@@ -72,7 +72,7 @@ namespace LivingTomorrow.CMSApi
             var _cmd = new CommandMessage { command = "scenarioEvent", data = _data };
             Debug.Log("CMS API | Websocket Manager | Send Scenario Event: " + JsonConvert.SerializeObject(_cmd));
             byte[] _bytes = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_cmd));
-            if (websocket.State == WebSocketState.Open)
+            if (websocket?.State == WebSocketState.Open)
                 await websocket.Send(_bytes);
         }
 
@@ -80,7 +80,7 @@ namespace LivingTomorrow.CMSApi
         {
             Debug.Log("CMS API | Websocket Manager | Sending Command Message: " + JsonConvert.SerializeObject(_cmd));
             byte[] _bytes = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(_cmd));
-            if (websocket.State == WebSocketState.Open)
+            if (websocket?.State == WebSocketState.Open)
                 await websocket.Send(_bytes);
         }
 
