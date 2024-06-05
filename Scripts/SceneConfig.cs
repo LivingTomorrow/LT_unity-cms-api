@@ -35,12 +35,15 @@ namespace LivingTomorrow.CMSApi
         }
         [SerializeField]
         [Tooltip("Global parameters that can be used to allow Living Tomorrow to customize certain string variables in the application. This will be displayed as a dropdown menu, so the options field is required.")]
+        [NonReorderable]
         internal ConfigParamStringId[] StringParameters;
         [SerializeField]
         [Tooltip("Scene specific parameters that can be used to allow Living Tomorrow to customize certain bool variables in the scene.")]
+        [NonReorderable]
         internal ConfigParamBoolId[] BoolParameters;
         [SerializeField]
         [Tooltip("Scene specific parameters that can be used to allow Living Tomorrow to customize certain int variables in the scene.")]
+        [NonReorderable]
         internal ConfigParamIntId[] IntParameters;
         private Hashtable CreateSequenceElements()
         {
