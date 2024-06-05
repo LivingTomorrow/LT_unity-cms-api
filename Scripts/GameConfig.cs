@@ -16,6 +16,7 @@ namespace LivingTomorrow.CMSApi
         [SerializeField]
         private SceneConfig[] sceneConfigs;
 
+
         public SceneConfig[] SceneConfigs
         {
             get
@@ -40,10 +41,13 @@ namespace LivingTomorrow.CMSApi
         public string[] ScenarioEvents;
 
         [Tooltip("Global parameters that can be used to allow Living Tomorrow to customize certain string variables in the application. This will be displayed as a dropdown menu, so the options field is required.")]
+        [NonReorderable]
         public ConfigParamStringId[] GlobalStringParameters;
         [Tooltip("Global parameters that can be used to allow Living Tomorrow to customize certain bool variables in the application.")]
+        [NonReorderable]
         public ConfigParamBoolId[] GlobalBoolParameters;
         [Tooltip("Global parameters that can be used to allow Living Tomorrow to customize certain int variables in the application.")]
+        [NonReorderable]
         public ConfigParamIntId[] GlobalIntParameters;
     }
 #if UNITY_EDITOR
