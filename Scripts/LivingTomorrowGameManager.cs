@@ -362,7 +362,7 @@ namespace LivingTomorrow.CMSApi
                 ((LT_Scene)XRConfig.scenes[_MI.sceneid]).addMediaItem(_MI.uid, (MediaItem)MediaManager.Instance.MediaItems[_MI.sceneid + _MI.uid]);
             }
 
-            if (Application.isEditor && Application.isPlaying && SceneManager.GetActiveScene().buildIndex == 0 && postConfigTemplate)
+            if (Application.isEditor && Application.isPlaying && postConfigTemplate)
             {
                 StartCoroutine(PostConfiguration());
             }
